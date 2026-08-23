@@ -1,0 +1,6 @@
+build/
+tests/
+nob
+nob.c
+nob.old
+.DS_Store
