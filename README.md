@@ -1,6 +1,10 @@
 # cavedive
 Simple Voxel Engine written in C/OpenGL
 
+<div align="center">
+    <img src="assets/cdgif.gif />
+</div>
+
 ### Requirements
 - OpenGL 4.1 or later.
 - CMake 3.16 or later.
