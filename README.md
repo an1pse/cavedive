@@ -2,7 +2,7 @@
 Simple Voxel Engine written in C/OpenGL
 
 <div align="center">
-    <img src="assets/cdgif.gif />
+    <img src="assets/cdgif.gif" />
 </div>
 
 ### Requirements
