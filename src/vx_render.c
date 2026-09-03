@@ -1,5 +1,5 @@
 #define CROSSHAIR_IMPLEMENTATION
-#include "virgl.h"
+#include "winrend.h"
 #include "vixx.h"
 
 extern void vixx_mesh_buffer_create(vx_chunk *chunk) {
@@ -40,8 +40,8 @@ static bool planes_bb_check(vec4s *planes, vx_bounding_box bb) {
     return true;
 }
 
-// Override for vgl_draw
-extern void vgl_draw(vgl_shader_interface *shader_interface) {
+// Override for draw
+extern void draw(shader_interface *shader_interface) {
     const float z_near = 1.0f;
     const float z_far  = 100.0f;
 
@@ -49,7 +49,7 @@ extern void vgl_draw(vgl_shader_interface *shader_interface) {
     vec3s center                 = glms_vec3_add(camera.position, camera.front);
     camera.transforms.view       = glms_lookat(camera.position, center, camera.up);
 
-    vgl_update_frustum();
+    update_frustum();
 
     glUniformMatrix4fv(shader_interface->uniforms.projection, 1, GL_FALSE, 
             (const GLfloat *)&camera.transforms.projection);

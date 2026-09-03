@@ -1,11 +1,11 @@
-#include "virgl.h"
+#include "winrend.h"
 #include "vixx.h"
 
 static SDL_Window *window;
 static SDL_GLContext context;
 static int window_exit = 0;
 
-extern int vgl_window_setup() {
+extern int window_setup() {
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("Couldn't initialize SDL: %s\n", SDL_GetError());
         return 1;
@@ -40,7 +40,7 @@ extern int vgl_window_setup() {
     return 0;
 }
 
-extern void vgl_event_poll() {
+extern void event_poll() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -60,21 +60,21 @@ extern void vgl_event_poll() {
     }
 }
 
-extern int vgl_window_should_close() {
+extern int window_should_close() {
     return window_exit;
 }
 
-extern void vgl_timer_update(vgl_timer *timer) {
+extern void timer_update(timer *timer) {
     timer->current_frame = GET_SECONDS;
     timer->delta_time = timer->current_frame - timer->last_frame;
     timer->last_frame = timer->current_frame;
 }
 
-extern void vgl_window_swap() {
+extern void window_swap() {
     SDL_GL_SwapWindow(window);
 }
 
-extern void vgl_close_window() {
+extern void close_window() {
     SDL_GL_DestroyContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();

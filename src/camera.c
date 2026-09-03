@@ -1,6 +1,6 @@
-#include "virgl.h"
+#include "winrend.h"
 
-vgl_camera2 camera = {0};
+camera2 camera = {0};
 
 static void update_camera_vectors() {
     vec3s front;
@@ -13,13 +13,13 @@ static void update_camera_vectors() {
     camera.up    = glms_normalize(glms_vec3_cross(camera.right, camera.front));
 }
 
-extern void vgl_update_frustum() {
+extern void update_frustum() {
     mat4s view_proj = glms_mat4_mul(camera.transforms.projection, camera.transforms.view);
     glms_frustum_planes(view_proj, camera.frustum.planes);
     glms_frustum_corners(glms_mat4_inv(view_proj), camera.frustum.corners);
 }
 
-extern void vgl_camera_init() {
+extern void camera_init() {
     camera.position = (vec3s){ 0.0f, 18.0f, 3.0f };
     camera.world_up = (vec3s){ 0.0f, 1.0f, 0.0f };
     camera.yaw      = -90.0f;
@@ -34,7 +34,7 @@ extern void vgl_camera_init() {
     update_camera_vectors();
 }
 
-extern void vgl_camera_move() {
+extern void camera_move() {
     const bool *key_states = SDL_GetKeyboardState(NULL);
 
     if (key_states[SDL_SCANCODE_W])
@@ -55,7 +55,7 @@ extern void vgl_camera_move() {
     update_camera_vectors();
 }
 
-extern void vgl_camera_point() {
+extern void camera_point() {
     if (camera.firstmouse) {
         camera.last_x = camera.mouse_x;
         camera.last_y = camera.mouse_y;

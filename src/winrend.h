@@ -1,5 +1,5 @@
-#ifndef VIRGL_H
-#define VIRGL_H
+#ifndef WINREND_H
+#define WINREND_H
 
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_events.h>
@@ -30,12 +30,12 @@ typedef struct {
     float current_frame;
     float delta_time;
     float last_frame;
-} vgl_timer;
+} timer;
 
 typedef struct {
     vec4s planes[6];
     vec4s corners[8];
-} vgl_frustum;
+} frustum;
 
 typedef struct {
     bool firstmouse;
@@ -60,8 +60,8 @@ typedef struct {
         mat4s view;
     } transforms;
 
-    vgl_frustum frustum;
-} vgl_camera2;
+    frustum frustum;
+} camera2;
 
 typedef struct {
     GLuint shader;
@@ -71,7 +71,7 @@ typedef struct {
         GLint view;
         GLint model; 
     } uniforms;
-} vgl_shader_interface;
+} shader_interface;
 
 #ifdef CROSSHAIR_IMPLEMENTATION
 const char *xh_vertex_shader =
@@ -162,30 +162,30 @@ extern void xh_render() {
 }
 #endif // CROSSHAIR_IMPLEMENTATION
 
-extern vgl_camera2 camera;
+extern camera2 camera;
 
-#define vgl_camera_move_speed_update(cam, tmr) cam.move_speed = 10.0f * tmr.delta_time;
-#define vgl_camera_lift_speed_update(cam, tmr) cam.lift_speed = 5.0f * tmr.delta_time;
+#define camera_move_speed_update(cam, tmr) cam.move_speed = 10.0f * tmr.delta_time;
+#define camera_lift_speed_update(cam, tmr) cam.lift_speed = 5.0f * tmr.delta_time;
 
 extern void xh_prep_crosshair();
 extern void xh_render();
-extern void vgl_update_frustum();
-extern void vgl_camera_init();
-extern void vgl_camera_move();
-extern void vgl_camera_point();
-extern void vgl_timer_update(vgl_timer *timer);
+extern void update_frustum();
+extern void camera_init();
+extern void camera_move();
+extern void camera_point();
+extern void timer_update(timer *timer);
 
-extern int vgl_window_setup();
-extern int vgl_window_should_close();
-extern void vgl_event_poll();
-extern void vgl_window_swap();
-extern void vgl_close_window();
+extern int window_setup();
+extern int window_should_close();
+extern void event_poll();
+extern void window_swap();
+extern void close_window();
 
-extern void vgl_shader_program_create(vgl_shader_interface *shader_interface);
-extern void vgl_vao_create(vgl_shader_interface *shader_interface);
-extern void vgl_texture_load(const char *filename, GLint *texture, int alpha);
+extern void shader_program_create(shader_interface *shader_interface);
+extern void vao_create(shader_interface *shader_interface);
+extern void texture_load(const char *filename, GLint *texture, int alpha);
 
 // Overridable Functions
-extern void vgl_draw(vgl_shader_interface *shader_interface);
+extern void draw(shader_interface *shader_interface);
 
-#endif // VIRGL_H
+#endif // WINREND_H

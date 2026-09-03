@@ -1,11 +1,11 @@
 #include <assert.h>
-#include "virgl.h"
+#include "winrend.h"
 #define VIXX_SHADERS
 #include "vixx.h"
 //#define STB_IMAGE_IMPLEMENTATION
 //#include "stb_image.h"
     
-extern void vgl_shader_program_create(vgl_shader_interface *shader_interface) {
+extern void shader_program_create(shader_interface *shader_interface) {
     int success;
     char infoLog[1024];
     GLint vertex_shader, fragment_shader;
@@ -52,7 +52,7 @@ extern void vgl_shader_program_create(vgl_shader_interface *shader_interface) {
 }
 
 #if 0
-extern void vgl_texture_load(const char *filename, GLint *texture, int alpha) {
+extern void texture_load(const char *filename, GLint *texture, int alpha) {
     glGenTextures(1, texture);
     glBindTexture(GL_TEXTURE_2D, *texture);
 

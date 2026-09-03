@@ -58,6 +58,7 @@ typedef struct {
     vx_chunk *chunks;
 } vx_world;
 
+#define VIXX_SHADERS
 #ifdef VIXX_SHADERS
 
 static const char *vertex_shader_source = // modified for voxels

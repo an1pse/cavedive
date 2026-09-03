@@ -1,16 +1,16 @@
-#include "virgl.h"
+#include "winrend.h"
 #include "vixx.h"
 
 const uint32_t max_fps = 60;
 const uint32_t frame_delay = 1000 / max_fps;
 
 int main(void) {
-    if (vgl_window_setup()) 
+    if (window_setup()) 
         return 1;
 
-    vgl_shader_interface shader_interface = {0};
-    vgl_camera_init();
-    vgl_shader_program_create(&shader_interface);
+    shader_interface shader_interface = {0};
+    camera_init();
+    shader_program_create(&shader_interface);
     xh_prep_crosshair();
     
     printf("Building Chunks...\n");
@@ -20,25 +20,25 @@ int main(void) {
         vixx_mesh_buffer_create(&wrld.chunks[i]);
     printf("Chunks Built! Firing up world.\n");
 
-    vgl_timer timer = {0};
-    while (!vgl_window_should_close()) { 
+    timer timer = {0};
+    while (!window_should_close()) { 
         Uint32 start_frame = SDL_GetTicks();
 
-        vgl_event_poll();
-        vgl_timer_update(&timer);
+        event_poll();
+        timer_update(&timer);
 
-        vgl_camera_move_speed_update(camera, timer);
-        vgl_camera_move();
-        vgl_camera_point();
+        camera_move_speed_update(camera, timer);
+        camera_move();
+        camera_point();
 
-        vgl_draw(&shader_interface);
-        vgl_window_swap();
+        draw(&shader_interface);
+        window_swap();
 
         Uint32 end_frame = SDL_GetTicks() - start_frame;
         if (frame_delay > end_frame)
             SDL_Delay(frame_delay - end_frame);
     }
 
-    vgl_close_window();
+    close_window();
     return 0;
 }

@@ -1,5 +1,5 @@
 #define STB_PERLIN_IMPLEMENTATION
-#include "virgl.h"
+#include "winrend.h"
 #include "vixx.h"
 
 #define IDC_VALUES 0, 0, 0
